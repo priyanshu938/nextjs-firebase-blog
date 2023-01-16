@@ -1,39 +1,76 @@
 import { useState, useEffect } from "react";
-import { collection, getDocs } from "firebase/firestore";
+import {
+  collection,
+  query,
+  orderBy,
+  limit,
+  onSnapshot,
+} from "firebase/firestore";
 import { db } from "../firebase";
-
+import Link from "next/link";
 export default function Home({ blogs }) {
   //   const [user] = useAuthState(auth);
   //   const router = useRouter();
   //   useEffect(() => {
   //     if (!user) router.replace("/login");
   //   }, [user]);
+  console.log(blogs);
   return (
-    <div>
-      <h1>I am home page</h1>
+    <div className="center">
       {blogs.map((blog) => (
-        <div key={blog.id}>
-          <h1>{blog.title}</h1>
-          <p>{blog.body}</p>
-          <img src={blog.imageUrl} />
+        <div key={blog.id} className="card">
+          <div className="card-image">
+            <img src={blog.imageUrl} />
+            <span className="card-title">{blog.title}</span>
+          </div>
+          <div className="card-content">
+            <p>{blog.body}</p>
+          </div>
+          <div className="card-action">
+            <Link href={`/blogs/${blog.id}`}>Read More</Link>
+          </div>
         </div>
       ))}
+      <style jsx>{`
+        .card {
+          max-width: 500px;
+          margin: 22px auto;
+        }
+        p {
+          display: -webkit-box;
+          overflow: hidden;
+          -webkit-line-clamp: 1;
+          -webkit-box-orient: vertical;
+        }
+      `}</style>
     </div>
   );
 }
 
 export async function getServerSideProps(context) {
   const blogsCollectionRef = await collection(db, "blogs");
-  const blogsSnapshot = await getDocs(blogsCollectionRef);
-  const blogs = blogsSnapshot.docs.map((doc) => {
-    return {
-      id: doc.id,
-      ...doc.data(),
-    };
+  const blogsQuery = await query(
+    blogsCollectionRef,
+    orderBy("createdAt", "desc"),
+    limit(3)
+  );
+  let blogs = [];
+  await onSnapshot(blogsQuery, (data) => {
+    var x = data.docs.map((item) => {
+      return {
+        id: item.id,
+        ...item.data(),
+        createdAt: item.data().createdAt.toMillis(),
+      };
+    });
+    blogs = [...x];
+    console.log(blogs);
   });
+
+  
   return {
     props: {
-      blogs: JSON.parse(JSON.stringify(blogs)),
+      blogs,
     },
   };
 }
