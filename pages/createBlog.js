@@ -22,6 +22,10 @@ const createBlog = ({ user }) => {
         };
         addDoc(blogsCollectionRef, newPost);
         M.toast({ html: `Blog post created!`, classes: "green" });
+        setTitle("");
+        setBody("");
+        setImage(null);
+        setUrl("");
       } catch (error) {
         M.toast({ html: `error in creating blog!`, classes: "red" });
       }
@@ -30,7 +34,10 @@ const createBlog = ({ user }) => {
 
   const submitDetails = () => {
     if (!title || !body || !image) {
-      M.toast({ html: `Please upload all the fields!`, classes: "#ff1744 red accent-3" });
+      M.toast({
+        html: `Please upload all the fields!`,
+        classes: "#ff1744 red accent-3",
+      });
       return;
     }
     const uploadRef = ref(storage, `image/${uuidv4()}`);
@@ -41,7 +48,10 @@ const createBlog = ({ user }) => {
         const progress =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         if (progress == "100")
-          M.toast({ html: `image uploaded successfully!`, classes: "#4caf50 green" });
+          M.toast({
+            html: `image uploaded successfully!`,
+            classes: "#4caf50 green",
+          });
       },
       (error) => {
         M.toast({ html: error.message, classes: "#ff1744 red accent-3" });
