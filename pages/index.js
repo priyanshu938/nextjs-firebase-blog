@@ -1,11 +1,5 @@
 import { useState, useEffect } from "react";
-import {
-  collection,
-  query,
-  orderBy,
-  limit,
-  onSnapshot,
-} from "firebase/firestore";
+import { collection, query, orderBy, limit, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
 import Link from "next/link";
 export default function Home({ blogs }) {
@@ -14,7 +8,6 @@ export default function Home({ blogs }) {
   //   useEffect(() => {
   //     if (!user) router.replace("/login");
   //   }, [user]);
-  console.log(blogs);
   return (
     <div className="center">
       {blogs.map((blog) => (
@@ -55,19 +48,15 @@ export async function getServerSideProps(context) {
     limit(3)
   );
   let blogs = [];
-  await onSnapshot(blogsQuery, (data) => {
-    var x = data.docs.map((item) => {
-      return {
-        id: item.id,
-        ...item.data(),
-        createdAt: item.data().createdAt.toMillis(),
-      };
-    });
-    blogs = [...x];
-    console.log(blogs);
+  const querySnapshot = await getDocs(blogsQuery);
+  blogs = querySnapshot.docs.map((item) => {
+    return {
+      id: item.id,
+      ...item.data(),
+      createdAt: item.data().createdAt.toMillis(),
+    };
   });
 
-  
   return {
     props: {
       blogs,
