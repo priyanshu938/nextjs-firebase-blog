@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   collection,
   query,
@@ -47,14 +47,16 @@ export default function Home(props) {
             <p>{blog.body}</p>
           </div>
           <div className="card-action">
-            <Link href={`/blogs/${blog.id}`}>Read More</Link>
+            <Link href={`/blogs/${blog.id}`}>
+              <span>Read More</span>
+            </Link>
           </div>
         </div>
       ))}
       {lastVisible ? (
         <h5>No more blogs to load</h5>
       ) : (
-        <button className="btn #fb8c00 orange darken-1" onClick={loadMore}>
+        <button className="btn #4caf50 green" onClick={loadMore}>
           Load more
         </button>
       )}

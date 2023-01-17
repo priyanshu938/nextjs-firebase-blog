@@ -18,6 +18,13 @@ const blogPage = ({ blog, user, comments }) => {
   const router = useRouter();
   const { blogid } = router.query;
   const makeComment = async () => {
+    if (myComment === "") {
+      M.toast({
+        html: `Cannot post empty comment!`,
+        classes: "#ff1744 red accent-3",
+      });
+      return;
+    }
     const blogDocRef = doc(db, "blogs", blogid);
     const colRef = collection(blogDocRef, "comments");
     await addDoc(colRef, {
@@ -55,12 +62,14 @@ const blogPage = ({ blog, user, comments }) => {
               }}
             />
           </div>
-          <button className="btn #fb8c00 orange darken-1" onClick={makeComment}>
+          <button className="btn #4caf50 green" onClick={makeComment}>
             Make comment
           </button>
         </div>
       ) : (
-        <h4><span>Please Login to make comments</span></h4>
+        <h4>
+          <span>Please Login to make comments</span>
+        </h4>
       )}
 
       <hr />
@@ -76,7 +85,7 @@ const blogPage = ({ blog, user, comments }) => {
       <style jsx global>
         {`
           body {
-            color: orange;
+            color: green;
           }
           img {
             width: 100%;

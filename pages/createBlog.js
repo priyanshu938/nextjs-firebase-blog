@@ -30,7 +30,7 @@ const createBlog = ({ user }) => {
 
   const submitDetails = () => {
     if (!title || !body || !image) {
-      M.toast({ html: `Please upload all the fields!`, classes: "red" });
+      M.toast({ html: `Please upload all the fields!`, classes: "#ff1744 red accent-3" });
       return;
     }
     const uploadRef = ref(storage, `image/${uuidv4()}`);
@@ -41,10 +41,10 @@ const createBlog = ({ user }) => {
         const progress =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         if (progress == "100")
-          M.toast({ html: `image uploaded successfully!`, classes: "green" });
+          M.toast({ html: `image uploaded successfully!`, classes: "#4caf50 green" });
       },
       (error) => {
-        M.toast({ html: error.message, classes: "red" });
+        M.toast({ html: error.message, classes: "#ff1744 red accent-3" });
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
@@ -71,7 +71,7 @@ const createBlog = ({ user }) => {
         onChange={(e) => setBody(e.target.value)}
       />
       <div className="file-field input-field">
-        <div className="btn #fb8c00 orange darken-1">
+        <div className="btn #4caf50 green">
           <span>Upload Image</span>
           <input type="file" onChange={(e) => setImage(e.target.files[0])} />
         </div>
@@ -81,7 +81,7 @@ const createBlog = ({ user }) => {
       </div>
       <button
         type="submit"
-        className="btn #fb8c00 orange darken-1"
+        className="btn #4caf50 green"
         onClick={submitDetails}
       >
         Submit post

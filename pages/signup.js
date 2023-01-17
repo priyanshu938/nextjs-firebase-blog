@@ -13,10 +13,10 @@ const signup = () => {
     e.preventDefault();
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      M.toast({ html: `Welcome ${name}`, classes: "green" });
+      M.toast({ html: `Welcome ${name}`, classes: "#4caf50 green" });
       router.push("/");
     } catch (error) {
-      M.toast({ html: error.message, classes: "red" });
+      M.toast({ html: error.message, classes: "#ff1744 red accent-3" });
     }
   };
   return (
@@ -49,7 +49,7 @@ const signup = () => {
             }}
           />
         </div>
-        <button type="submit" className="btn #fb8c00 orange darken-1">
+        <button type="submit" className="btn #4caf50 green">
           signup
         </button>
         <Link href="/login">

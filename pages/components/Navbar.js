@@ -6,7 +6,7 @@ const Navbar = ({ user }) => {
   return (
     <div>
       <nav>
-        <div className="nav-wrapper #fb8c00 orange darken-1">
+        <div className="nav-wrapper #4caf50 green">
           <Link href="/" className="brand-logo">
             NextBlogger
           </Link>
@@ -18,7 +18,7 @@ const Navbar = ({ user }) => {
                 </li>
                 <li>
                   <button
-                    className="btn red"
+                    className="btn #ff1744 red accent-3"
                     onClick={() => {
                       auth.signOut();
                     }}

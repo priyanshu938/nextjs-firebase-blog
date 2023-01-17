@@ -23,6 +23,7 @@ function MyApp({ Component, pageProps }) {
           defer
           src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"
         ></script>
+        <title>NextBlogger</title>
       </Head>
       <Navbar user={user} />
       <Component {...pageProps} user={user} />
