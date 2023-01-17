@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { auth } from "../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-const signup = () => {
+const Signup = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -60,4 +60,4 @@ const signup = () => {
   );
 };
 
-export default signup;
+export default Signup;

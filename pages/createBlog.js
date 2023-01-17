@@ -4,7 +4,7 @@ import { storage, db } from "../firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
-const createBlog = ({ user }) => {
+const CreateBlog = ({ user }) => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [image, setImage] = useState(null);
@@ -109,4 +109,4 @@ const createBlog = ({ user }) => {
   );
 };
 
-export default createBlog;
+export default CreateBlog;

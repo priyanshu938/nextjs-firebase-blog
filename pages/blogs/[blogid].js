@@ -12,7 +12,7 @@ import {
 import { db } from "../../firebase";
 import { useRouter } from "next/router";
 
-const blogPage = ({ blog, user, comments }) => {
+const BlogPage = ({ blog, user, comments }) => {
   const [myComment, setMyComment] = useState("");
   const [allComments, setAllComments] = useState(comments);
   const router = useRouter();
@@ -100,7 +100,7 @@ const blogPage = ({ blog, user, comments }) => {
   );
 };
 
-export default blogPage;
+export default BlogPage;
 
 export async function getServerSideProps({ params: { blogid } }) {
   const blogDoc = doc(db, "blogs", blogid);

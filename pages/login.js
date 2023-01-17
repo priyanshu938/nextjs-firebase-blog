@@ -7,7 +7,7 @@ import {
   getAuth,
   sendPasswordResetEmail,
 } from "firebase/auth";
-const login = () => {
+const Login = () => {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -71,4 +71,4 @@ const login = () => {
   );
 };
 
-export default login;
+export default Login;
