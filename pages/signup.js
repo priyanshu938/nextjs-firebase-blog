@@ -1,17 +1,20 @@
 import React, { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { auth } from "../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 const signup = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       M.toast({ html: `Welcome ${name}`, classes: "green" });
+      router.push("/");
     } catch (error) {
       M.toast({ html: error.message, classes: "red" });
     }

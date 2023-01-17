@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { auth } from "../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 const login = () => {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -11,6 +13,7 @@ const login = () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       M.toast({ html: `Successfully logged in!`, classes: "green" });
+      router.push("/");
     } catch (error) {
       M.toast({ html: error.message, classes: "red" });
     }
